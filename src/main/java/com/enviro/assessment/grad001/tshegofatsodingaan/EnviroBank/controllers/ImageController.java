@@ -2,6 +2,7 @@ package com.enviro.assessment.grad001.tshegofatsodingaan.EnviroBank.controllers;
 
 import com.enviro.assessment.grad001.tshegofatsodingaan.EnviroBank.services.AccountHolderService;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,14 +24,14 @@ public class ImageController {
 
 
     @GetMapping(value = "/{name}/{surname}")
-    public void gethttpImageLink(@PathVariable String name, @PathVariable String surname){
-        /*Optional<String> nameEntity = accountHolderService.getUriByName(name).describeConstable();
-        Optional<String> surnameEntity = accountHolderService.getUriBySurname(surname).describeConstable();*/
+    public ResponseEntity<FileSystemResource> gethttpImageLink(@PathVariable String name, @PathVariable String surname){
 
-        /*if(nameEntity.isEmpty() || surnameEntity.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }*/
-        System.out.println(accountHolderService.getUriByName(name));
+        if(accountHolderService.doesNameExist(name) && accountHolderService.doesSurnameExist(surname)){
+            String uri = accountHolderService.getUriByNameAndSurname(name, surname);
+            FileSystemResource fileSystemResource = new FileSystemResource(uri);
+            return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(fileSystemResource);
+        }
 
+        return ResponseEntity.notFound().build();
     }
 }
