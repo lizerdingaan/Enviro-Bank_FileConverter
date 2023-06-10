@@ -71,6 +71,7 @@ public class AccountHolderService implements FileParser {
             Files.write(imageFile.toPath(), decodedBytes);
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
         return imageFile;
     }
