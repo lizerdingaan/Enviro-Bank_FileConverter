@@ -71,4 +71,12 @@ public class AccountHolderService implements FileParser {
         URI imageLink = fileImage.toURI(); // obtains the URI version of the fileImage
         return imageLink;
     }
+
+    public String getUriByName(String name){
+        return accountHolderRepository.findAccountProfileEntityByAccountHolderName(name);
+    }
+
+    public String getUriBySurname(String surname){
+        return accountHolderRepository.findAccountProfileEntityByAccountHolderSurname(surname);
+    }
 }

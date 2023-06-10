@@ -9,6 +9,7 @@ public interface AccountHolderRepository extends JpaRepository<AccountProfileEnt
 
     String findAccountProfileEntityByAccountHolderName(String accountHolderName);
     String findAccountProfileEntityByAccountHolderSurname(String accountHolderSurname);
-    String findAccountProfileEntityByHttpImageLink(String httpImageLink);
+
+
 
 }
