@@ -45,5 +45,13 @@ public class AccountHolderUnittests {
     @Test
     @DisplayName("Validate conversion of csv data to image")
     void testCsvDataToImage(){
+        String imageData = "jpeg | /9j/4Q0ARXhpZgAATU0 | Enviro365";
+        File generatedImage = accountHolderService.convertCSVDataToImage(imageData);
+
+        assertThat(generatedImage).isNotNull();
+        assertThat(generatedImage.exists()).isTrue();
+        assertThat(generatedImage.getName().contains("Enviro365")).isTrue();
+        assertThat(generatedImage.getName().contains(".jpeg")).isTrue();
+
     }
 }
