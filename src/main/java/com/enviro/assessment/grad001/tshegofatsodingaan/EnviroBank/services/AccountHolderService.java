@@ -4,14 +4,11 @@ import com.enviro.assessment.grad001.tshegofatsodingaan.EnviroBank.converter.Fil
 import com.enviro.assessment.grad001.tshegofatsodingaan.EnviroBank.entities.AccountProfileEntity;
 import com.enviro.assessment.grad001.tshegofatsodingaan.EnviroBank.repository.AccountHolderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.URI;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Base64;
 
 @Service
@@ -26,7 +23,6 @@ public class AccountHolderService implements FileParser {
     }
     @Override
     public void parseCSV(File csvFile) throws FileNotFoundException {
-       // System.out.println(csvFile);
         try (BufferedReader reader = new BufferedReader(new FileReader(csvFile))) {
             String line;
             reader.readLine();
@@ -37,8 +33,6 @@ public class AccountHolderService implements FileParser {
                 String imageFormat = data[2];
                 String imageData = data[3];
                 String imageFormatAndData = this.imageFormatAndData(imageFormat, imageData, name);
-
-                System.out.println(imageFormat);
 
                 File convertedImage = this.convertCSVDataToImage(imageFormatAndData);
                 String uri = this.createImageLink(convertedImage).getPath();
@@ -52,9 +46,8 @@ public class AccountHolderService implements FileParser {
 
             }
         } catch (IOException e) {
-            System.out.println("Failed to read CSV file: " + e.getMessage());
+            e.printStackTrace();
         }
-
     }
 
     @Override
@@ -83,6 +76,7 @@ public class AccountHolderService implements FileParser {
         }
     }
 
+
     @Override
     public URI createImageLink(File fileImage) {
         try{
@@ -94,22 +88,15 @@ public class AccountHolderService implements FileParser {
         }
     }
 
-    public String getUriByName(String name){
-        return accountHolderRepository.findAccountProfileEntityByAccountHolderName(name).getAccountHolderName();
-    }
-
-    public String getUriBySurname(String surname){
-        return accountHolderRepository.findAccountProfileEntityByAccountHolderSurname(surname).getAccountHolderSurname();
-    }
-
     public String getUriByNameAndSurname(String name, String surname){
         return accountHolderRepository.findAccountProfileEntityByAccountHolderNameAndAccountHolderSurname(name, surname).getHttpImageLink();
-
     }
+
 
     public boolean doesNameExist(String name){
         return accountHolderRepository.existsByName(name);
     }
+
 
     public boolean doesSurnameExist(String surname) {
         return accountHolderRepository.existsBySurname(surname);

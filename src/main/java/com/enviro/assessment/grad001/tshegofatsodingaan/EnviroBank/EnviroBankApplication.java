@@ -26,10 +26,9 @@ public class EnviroBankApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+
 		String csvFile = "1672815113084-GraduateDev_AssessmentCsv_Ref003.csv";
 		Resource csvResource = new ClassPathResource(csvFile);
-		//System.out.println(csvResource.getFile());
 		accountHolderService.parseCSV(csvResource.getFile());
-		System.out.println("hiii------------hiiii----------");
 	}
 }
