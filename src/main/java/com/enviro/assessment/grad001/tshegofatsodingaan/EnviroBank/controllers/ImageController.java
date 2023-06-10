@@ -29,7 +29,10 @@ public class ImageController {
         if(accountHolderService.doesNameExist(name) && accountHolderService.doesSurnameExist(surname)){
             String uri = accountHolderService.getUriByNameAndSurname(name, surname);
             FileSystemResource fileSystemResource = new FileSystemResource(uri);
-            return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(fileSystemResource);
+            return ResponseEntity
+                    .ok()
+                    .contentType(uri.contains(".jpg") || uri.contains(".jpeg") ? MediaType.IMAGE_JPEG : MediaType.IMAGE_PNG)
+                    .body(fileSystemResource);
         }
 
         return ResponseEntity.notFound().build();

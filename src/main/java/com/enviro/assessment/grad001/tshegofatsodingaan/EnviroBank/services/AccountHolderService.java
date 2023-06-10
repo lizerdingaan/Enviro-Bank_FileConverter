@@ -21,6 +21,11 @@ public class AccountHolderService implements FileParser {
         this.accountHolderRepository = accountHolderRepository;
 
     }
+
+    /**
+    * Reads the CSV files and adds data to the database
+    * @param csvFile The file to be parsed
+    * */
     @Override
     public void parseCSV(File csvFile) {
         try (BufferedReader reader = new BufferedReader(new FileReader(csvFile))) {
@@ -50,6 +55,11 @@ public class AccountHolderService implements FileParser {
         }
     }
 
+    /**
+     * Interprets encoded base64 text into a file (image)
+     * @param base64ImageData Encoded base64 string
+     * @return The converted file image
+     */
     @Override
     public File convertCSVDataToImage(String base64ImageData) {
         File imageFile = null;
@@ -65,7 +75,13 @@ public class AccountHolderService implements FileParser {
         return imageFile;
     }
 
-
+    /**
+     * Concatenates three values with a delimiter ('|')
+     * @param imageFormat The value 'image/jpeg'
+     * @param imageData The encoded base64 text
+     * @param name The name of the file
+     * @return The concatenated string
+     */
     public String imageFormatAndData(String imageFormat, String imageData, String name) {
         try {
             String extension = imageFormat.substring(imageFormat.lastIndexOf('/') + 1);
@@ -76,7 +92,11 @@ public class AccountHolderService implements FileParser {
         }
     }
 
-
+    /**
+     * Creates the Uri link to the image
+     * @param fileImage The file image
+     * @return The Uri link
+     */
     @Override
     public URI createImageLink(File fileImage) {
         try{
@@ -87,6 +107,7 @@ public class AccountHolderService implements FileParser {
             return null;
         }
     }
+
 
     public String getUriByNameAndSurname(String name, String surname){
         return accountHolderRepository.findAccountProfileEntityByAccountHolderNameAndAccountHolderSurname(name, surname).getHttpImageLink();
