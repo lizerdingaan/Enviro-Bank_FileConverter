@@ -1,6 +1,6 @@
 package com.enviro.assessment.grad001.tshegofatsodingaan.EnviroBank.services;
 
-import com.enviro.assessment.grad001.tshegofatsodingaan.EnviroBank.converter.FileParser;
+import com.enviro.assessment.grad001.tshegofatsodingaan.EnviroBank.utilities.FileParser;
 import com.enviro.assessment.grad001.tshegofatsodingaan.EnviroBank.entities.AccountProfileEntity;
 import com.enviro.assessment.grad001.tshegofatsodingaan.EnviroBank.repository.AccountHolderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class AccountHolderService implements FileParser {
 
     }
     @Override
-    public void parseCSV(File csvFile) throws FileNotFoundException {
+    public void parseCSV(File csvFile) {
         try (BufferedReader reader = new BufferedReader(new FileReader(csvFile))) {
             String line;
             reader.readLine();
