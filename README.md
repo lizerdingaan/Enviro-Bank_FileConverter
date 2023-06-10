@@ -57,4 +57,5 @@ You have successfully cloned the Spring Boot project, ran tests, and executed th
 
 - Introducing more objects
 - Decoupling the `parseCsv()` method. The method is too big and is impossible to test
-- Providing a proper error messages for other failures that may occur 
+- Providing a proper error messages for other failures that may occur
+- Ignore case in the path param values to avoid false negatives
